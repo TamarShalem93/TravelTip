@@ -2,7 +2,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    remove
+    remove,
+    setCenter,
 }
 import { locService } from './loc.service.js'
 
@@ -48,8 +49,8 @@ function addMarker(loc) {
 }
 
 function panTo({ lat, lng }) {
-    var laLatLng = new google.maps.LatLng(lat, lng)
-    gMap.panTo(laLatLng)
+    var latLng = new google.maps.LatLng(lat, lng)
+    gMap.panTo(latLng)
 }
 
 function _connectGoogleApi() {
@@ -64,4 +65,9 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+function setCenter(loc) {
+    const latLng = { lat: loc.lat, lng: loc.lng }
+    gMap.setCenter(latLng);
+    gMap.panTo(latLng)
 }

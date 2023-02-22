@@ -8,7 +8,6 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
-window.onLocationAdd = onLocationAdd
 function onInit() {
     mapService.initMap()
         .then(() => {
@@ -59,7 +58,11 @@ function renderLocsTable(locs) {
 
 function onGo(id) {
     locService.getLoc(id)
-        .then(console.log)
+        .then(loc => {
+            const { lat, lng } = loc
+            mapService.panTo({ lat, lng })
+
+        })
 }
 
 function onDelete(id) {
