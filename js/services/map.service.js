@@ -2,6 +2,7 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
+    remove
 }
 import { locService } from './loc.service.js'
 
@@ -25,14 +26,17 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             panTo(loc)
             addMarker(loc)
             saveLocation(loc)
-
         }
         )
+
     })
 }
 
 function saveLocation(loc) {
     locService.saveLoc(loc)
+}
+function remove(locId) {
+    return storageService.remove(LOC_KEY, locId)
 }
 function addMarker(loc) {
     var marker = new google.maps.Marker({

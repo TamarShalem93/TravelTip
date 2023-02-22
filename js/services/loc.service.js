@@ -12,9 +12,11 @@ _createLocs()
 
 export const locService = {
     getLocs,
+    getLoc,
     getFilterBy,
     setFilterBy,
     saveLoc,
+    remove,
     createLoc: _createLoc
 }
 
@@ -23,7 +25,7 @@ function getLocs() {
     return storageService.query(LOC_KEY)
 }
 
-function get(locID) {
+function getLoc(locID) {
     return storageService.get(LOC_KEY, locID)
 }
 
