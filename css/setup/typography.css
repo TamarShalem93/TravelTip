@@ -1,10 +1,10 @@
 /* lato */
 @font-face {
   font-family: product;
-  src: url(/fonts/Product/Product-Sans-Regular.ttf);
+  src: url("fonts/Product/Product-Sans-Regular.ttf");
 }
 
 @font-face {
-  font-family: 'product Bold';
-  src: url(/fonts/Product/Product-Sans-Bold.ttf);
+  font-family: "product Bold";
+  src: url("fonts/Product/Product-Sans-Bold.ttf");
 }

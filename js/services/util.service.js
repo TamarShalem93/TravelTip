@@ -3,11 +3,13 @@ export const utilService = {
     loadFromStorage,
     makeId,
     randomPastTime,
-    randomPetName,
+    randomLocName: randomLocName,
     randomPetType,
+    generateRandomLat,
+    generateRandomLng
 }
 
-const gPetNames = ['Bob', 'Charls', 'Chip']
+const gLocNames = ['School', 'Work', 'Home']
 const gPetTypes = ['cat', 'dog', 'bird', 'fish', 'rabbit']
 
 function saveToStorage(key, value) {
@@ -28,6 +30,24 @@ function makeId(length = 5) {
     return txt
 }
 
+// LONGITUDE -180 to + 180
+function generateRandomLng() {
+    var num = (Math.random() * 180).toFixed(3);
+    var posorneg = Math.floor(Math.random());
+    if (posorneg == 0) {
+        num = num * -1;
+    }
+    return num;
+}
+// LATITUDE -90 to +90
+function generateRandomLat() {
+    var num = (Math.random() * 90).toFixed(3);
+    var posorneg = Math.floor(Math.random());
+    if (posorneg == 0) {
+        num = num * -1;
+    }
+    return num;
+}
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min)
@@ -35,8 +55,8 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function randomPetName() {
-    return gPetNames[parseInt(Math.random() * gPetNames.length)]
+function randomLocName() {
+    return gLocNames[parseInt(Math.random() * gLocNames.length)]
 }
 
 function randomPetType() {
@@ -47,7 +67,7 @@ function randomPastTime() {
     const HOUR = 1000 * 60 * 60
     const DAY = 1000 * 60 * 60 * 24
     const WEEK = 1000 * 60 * 60 * 24 * 7
-    
+
     const pastTime = getRandomIntInclusive(HOUR, WEEK)
     return Date.now() - pastTime
 }
