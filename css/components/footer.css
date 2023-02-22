@@ -1,9 +1,4 @@
-header{
+footer{
   background-color: var(--clr-2);
-}
-
-header>h1{
   color: var(--clr-3);
-  font-size: 3em;
-  padding: 20px;
 }
