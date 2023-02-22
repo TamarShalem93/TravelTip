@@ -4,6 +4,8 @@ export const mapService = {
     panTo,
     remove,
     setCenter,
+    saveLocation,
+    getAddressLoc
 }
 import { locService } from './loc.service.js'
 
@@ -36,9 +38,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 function saveLocation(loc) {
     locService.saveLoc(loc)
 }
+
 function remove(locId) {
     return storageService.remove(LOC_KEY, locId)
 }
+
 function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
@@ -66,8 +70,19 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
 function setCenter(loc) {
     const latLng = { lat: loc.lat, lng: loc.lng }
     gMap.setCenter(latLng);
     gMap.panTo(latLng)
+}
+function getAddressLoc(address) {
+    const API_KEY = 'AIzaSyCTnsMp0vRfi2iLQOE0jgGMh3eVhtD2BKg'
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
+    return axios.get(url)
+        .then(res => {
+            console.log();
+            const location = res.data.results[0].geometry.location
+            return location
+        })
 }
