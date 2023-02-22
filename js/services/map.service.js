@@ -1,62 +1,41 @@
 export const mapService = {
-<<<<<<< HEAD
   initMap,
   addMarker,
   panTo,
-=======
-    initMap,
-    addMarker,
-    panTo,
-    remove,
-    setCenter,
-    saveLocation,
-    getAddressLoc
->>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
+  remove,
+  setCenter,
+  saveLocation,
+  getAddressLoc,
+  getCurrLoc,
 }
 import { locService } from './loc.service.js'
+import { utilService } from './util.service.js'
 
 // Var that is used throughout this Module (not global)
-var gMap, _gCurrInfOWin
+var gMap, _gCurrInfOWin, gLoc
 
-function initMap(lat = 32.0749831, lng = 34.9120554) {
-<<<<<<< HEAD
+function initMap(lat, lng) {
+  // function initMap(lat = 32.0749831, lng = 34.9120554) {
   console.log('InitMap')
+  const lat = utilService.getValFromParam(lat)
+  const lng = utilService.getValFromParam(lng)
   return _connectGoogleApi().then(() => {
     console.log('google available')
     gMap = new google.maps.Map(document.querySelector('#map'), {
       center: { lat, lng },
       zoom: 15,
-=======
-    console.log('InitMap')
-    return _connectGoogleApi().then(() => {
-        console.log('google available')
-        gMap = new google.maps.Map(document.querySelector('#map'), {
-            center: { lat, lng },
-            zoom: 15,
-        })
-        console.log('Map!', gMap)
-
-        // Configure the click listener.
-        gMap.addListener("click", ev => {
-            const loc = locService.createLoc("home", ev.latLng.lat(), ev.latLng.lng())
-            console.log(loc);
-            panTo(loc)
-            addMarker(loc)
-            saveLocation(loc)
-        }
-        )
-
->>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
     })
     console.log('Map!', gMap)
 
     // Configure the click listener.
     gMap.addListener('click', (ev) => {
+      gLoc = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
       const loc = locService.createLoc('home', ev.latLng.lat(), ev.latLng.lng())
       console.log(loc)
       panTo(loc)
+      openInfoWin(loc)
       addMarker(loc)
-      saveLocation(loc)
+      //   saveLocation(loc)
     })
   })
 }
@@ -65,16 +44,11 @@ function saveLocation(loc) {
   locService.saveLoc(loc)
 }
 
-<<<<<<< HEAD
-=======
 function remove(locId) {
-    return storageService.remove(LOC_KEY, locId)
+  return storageService.remove(LOC_KEY, locId)
 }
 
->>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
 function addMarker(loc) {
-  openInfoWin(loc)
-  //   console.log(title)
   var marker = new google.maps.Marker({
     position: loc,
     map: gMap,
@@ -84,31 +58,22 @@ function addMarker(loc) {
 }
 
 function panTo({ lat, lng }) {
-<<<<<<< HEAD
-  var laLatLng = new google.maps.LatLng(lat, lng)
-  gMap.panTo(laLatLng)
+  var latLng = new google.maps.LatLng(lat, lng)
+  gMap.panTo(latLng)
+  if (_gCurrInfOWin) _gCurrInfOWin.close(gMap)
 }
 
 function openInfoWin(loc) {
+  if (_gCurrInfOWin) _gCurrInfOWin.close(gMap)
+
   _gCurrInfOWin = new google.maps.InfoWindow({
-    content: `<form onsubmit="setPlaceName(event, this.value))">
-            <input type="text" placeholder="Location Name"/>
+    content: `<form class="loc-name-form" onsubmit="setPlaceName(event)">
+            <input name="loc-name" type="text" placeholder="Location Name"/>
             <button>Save Location</button>
         </form>`,
     position: loc,
   })
   _gCurrInfOWin.open(gMap)
-}
-
-function setPlaceName(ev, name) {
-  console.log(ev)
-  ev.preventDefault()
-  console.log(name)
-  //   marker.title = name
-=======
-    var latLng = new google.maps.LatLng(lat, lng)
-    gMap.panTo(latLng)
->>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
 }
 
 function _connectGoogleApi() {
@@ -126,17 +91,20 @@ function _connectGoogleApi() {
 }
 
 function setCenter(loc) {
-    const latLng = { lat: loc.lat, lng: loc.lng }
-    gMap.setCenter(latLng);
-    gMap.panTo(latLng)
+  const latLng = { lat: loc.lat, lng: loc.lng }
+  gMap.setCenter(latLng)
+  gMap.panTo(latLng)
 }
 function getAddressLoc(address) {
-    const API_KEY = 'AIzaSyCTnsMp0vRfi2iLQOE0jgGMh3eVhtD2BKg'
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
-    return axios.get(url)
-        .then(res => {
-            console.log();
-            const location = res.data.results[0].geometry.location
-            return location
-        })
+  const API_KEY = 'AIzaSyCTnsMp0vRfi2iLQOE0jgGMh3eVhtD2BKg'
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
+  return axios.get(url).then((res) => {
+    console.log()
+    const location = res.data.results[0].geometry.location
+    return location
+  })
+}
+
+function getCurrLoc() {
+  return gLoc
 }

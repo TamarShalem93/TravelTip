@@ -11,43 +11,30 @@
     <header class="main-layout full">
         <h1>TravelTip </h1>
     </header>
-<<<<<<< HEAD
     <main class="inside-layout">
         <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
         <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
         <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
         <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+        <button onclick="onCopyLink()"class="btn-copy">Copy Link</button>
       
-
-        <section class="loc-list">
-            <p>You are at: <span class="user-pos"></span></p>
-            <p>Locations: 
-                <pre class="locs"></pre>
-            </p>
-        </section>
-        <div id="map" style="width: 100%; height: 400px;"></div>
-    </main>
-
-    <footer class="full"><small>Lior Doron & Tamar Shalem</small></footer>
-
-=======
-    <div id="map" style="width: 100%; height: 400px;"></div>
-    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-    <form onsubmit="onPanTo(event)">
+ <form onsubmit="onPanTo(event)">
         <input class='text-pan' type="text" placeholder="where do you wanna go?">
         <button class="btn-pan">go</button>
     </form>
-<form onsubmit = "onLocationAdd(event)">`
-</form>
+    <form onsubmit = "onLocationAdd(event)">`
+    </form>
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: 
         <pre class="locs"></pre>
     </p>
     
+        </section>
+        <div id="map" style="width: 100%; height: 400px;"></div>
+    </main>
+
+    <footer class="full"><small>Lior Doron & Tamar Shalem</small></footer>
     <script src="lib/axios.js"></script>
->>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
     <script type="module" src="js/app.controller.js"></script>
 </body>
 </html>
