@@ -10,7 +10,9 @@
 
 /* COMPONENTS */
 @import 'components/header.css';
-/* @import 'components/logo.css'; */
+@import 'components/actions.css';
+@import 'components/places.css';
+@import 'components/locs-table.css';
 @import 'components/footer.css';
 
 /* MEDIA QUERIS */

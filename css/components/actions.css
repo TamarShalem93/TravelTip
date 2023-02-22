@@ -1,0 +1,6 @@
+.actions{
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  justify-content: space-around;
+}

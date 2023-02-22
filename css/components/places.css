@@ -1,0 +1,9 @@
+.places {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-around;
+}
+
+.places button:hover{
+  background-color: var(--clr-2);
+}

@@ -1,0 +1,23 @@
+table{
+border: 3px solid var(--clr-2);
+border-collapse: collapse;
+
+}
+
+th, td{
+border: 1px solid var(--clr-2);
+padding: 5px;
+}
+
+table button{
+  width: 60px;
+  padding: 5px;
+}
+
+.btn-go:hover{
+  background-color: var(--clr-2);
+}
+
+.btn-delete:hover{
+  background-color: var(--clr1);
+}

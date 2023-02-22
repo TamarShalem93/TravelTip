@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/711d94845a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/main.css">
     <title>TravelTip</title>
 </head>
@@ -12,24 +13,34 @@
         <h1>TravelTip </h1>
     </header>
     <main class="inside-layout">
-        <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-        <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-        <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
-        <button onclick="onCopyLink()"class="btn-copy">Copy Link</button>
-      
- <form onsubmit="onPanTo(event)">
-        <input class='text-pan' type="text" placeholder="where do you wanna go?">
-        <button class="btn-pan">go</button>
-    </form>
-    <form onsubmit = "onLocationAdd(event)">`
-    </form>
-    <p>You are at: <span class="user-pos"></span></p>
+        <section class="actions full">
+
+            <button onclick="onAddMarker()" class="btn-add-marker" title="Add Marker"><i class="fa-solid fa-location-dot"></i></button>
+            <button onclick="onGetUserPos()" class="btn-user-pos" title="Your Location"><i class="fa-regular fa-circle-dot"></i></button>
+            <button onclick="onGetLocs()" class="btn-get-locs" title="Open your Locations"><i class="fa-solid fa-list-ul"></i></button>
+            <!-- <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button> -->
+            <button onclick="onCopyLink()"class="btn-copy" title="Copy Link"><i class="fa-solid fa-link"></i></button>
+          
+        </section>       
+        
+        
+    </section>
+    <section class="places full">
+        <p>You are at: <span class="user-pos"></span></p>
+        <form onsubmit="onPanTo(event)">
+            <input class='text-pan' type="text" placeholder="where do you wanna go?">
+            <button class="btn-pan">go</button>
+            <form onsubmit = "onLocationAdd(event)">
+            </form>
+        </form>
+    </section>
+    <section class="locs-table">
     <p>Locations: 
-        <pre class="locs"></pre>
+        <pre class="locs">
+        </pre>
     </p>
-    
-        </section>
+</section>
+        
         <div id="map" style="width: 100%; height: 400px;"></div>
     </main>
 

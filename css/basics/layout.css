@@ -19,11 +19,12 @@
   gap: 10px;
 }
 
-.list-layout {
-  display: grid;
+.inside-layout>.full {
+  grid-column: 1/-1;
+  /* display: grid; */
   /* grid-template-columns: 1fr 2fr; */
-  align-items: center;
+  /* align-items: center;
   justify-items: start;
-  gap: 10px;
+  gap: 10px; */
 }
 

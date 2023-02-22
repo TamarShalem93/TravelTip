@@ -31,9 +31,7 @@ h5,
 h6 {
   font-family: product;
 }
-form{
-  display: flex;
-}
+
 
 form>button{
   height: max-content;
@@ -42,6 +40,7 @@ form>button{
 }
 
 form>input{
+  
   height: max-content;
     width: 150px;
     padding: 10px;

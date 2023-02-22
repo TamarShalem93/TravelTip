@@ -39,20 +39,22 @@ function onGetLocs() {
 }
 
 function renderLocs() {
-  locService.getLocs().then(renderLocsTable)
+  locService.getLocs().then(renderLocsList)
 }
 
-function renderLocsTable(locs) {
+function renderLocsList(locs) {
   let strHtmls = `<table>`
   strHtmls += locs
     .map((loc) => {
       return `<tr>
-            <td>${loc.id}</td>
             <td>${loc.name}</td>
-            <td>${formatDate(loc.createdAt)}</td>
             <td>${formatDate(loc.updatedAt)}</td>
-            <td><button onclick="onGo('${loc.id}')">Go</button></td>
-            <td><button onclick="onDelete('${loc.id}')">Delete</button></td>
+            <td><button class="btn-go" onclick="onGo('${
+              loc.id
+            }')">Go</button></td>
+            <td><button class="btn-delete" onclick="onDelete('${
+              loc.id
+            }')">Delete</button></td>
             </tr>
         `
     })
@@ -72,12 +74,13 @@ function onDelete(id) {
 
 function formatDate(timestamp) {
   const today = new Date(timestamp)
-  return today.toDateString()
+  return today.toLocaleDateString()
 }
 
 function onGetUserPos() {
   getPosition()
     .then((pos) => {
+      console.log(pos)
       const lat = pos.coords.latitude
       const lng = pos.coords.longitude
       mapService.panTo({ lat, lng })
@@ -91,7 +94,7 @@ function onGetUserPos() {
 }
 
 function onPanTo(ev) {
-  ev.preventDefault()
+  if (ev) ev.preventDefault()
   const address = document.querySelector('.text-pan').value
   mapService.getAddressLoc(address).then((loc) => {
     mapService.panTo(loc)
