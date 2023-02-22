@@ -1,6 +1,8 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
+window.onDelete = onDelete
+window.onGo = onGo
 window.onload = onInit
 window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
@@ -34,20 +36,27 @@ function onGetLocs() {
 }
 function renderLocs(locs) {
     console.log(locs);
-    let strHtmls = `<table></table>`
+    let strHtmls = `<table>`
     strHtmls += locs.map(loc => {
         return `<tr>
             <td>${loc.id}</td>
             <td>${loc.name}</td>
             <td>${formatDate(loc.createdAt)}</td>
             <td>${formatDate(loc.updatedAt)}</td>
+            <td><button onclick="onGo('${loc.id}')">Go</button></td>
+            <td><button onclick="onDelete('${loc.id}')">Delete</button></td>
             </tr>
         `
     }).join('')
     strHtmls += `</table>`
     document.querySelector('.locs').innerHTML = strHtmls
 }
-
+function onGo(id) {
+    console.log('go');
+}
+function onDelete(id) {
+    console.log('delete');
+}
 
 function formatDate(timestamp) {
     const today = new Date(timestamp)

@@ -14,7 +14,8 @@ export const locService = {
     getLocs,
     getFilterBy,
     setFilterBy,
-    saveLoc
+    saveLoc,
+    createLoc: _createLoc
 }
 
 
@@ -32,7 +33,6 @@ function remove(locID) {
 }
 
 function saveLoc(loc) {
-
     if (loc.id) {
         return storageService.put(LOC_KEY, loc)
     } else {
@@ -65,15 +65,15 @@ function _createLocs() {
 
 function _createDemoLocs() {
     return locs.map(({ name, lat, lng }) => {
-        const loc = _createLoc(name, lat, lng)
+        const loc = _createLoc(name, lat, lng, true)
         return loc
     }
     )
 }
 
-function _createLoc(name, lat, lng) {
+function _createLoc(name, lat, lng, id = false) {
     const loc = getEmptyLoc()
-    loc.id = utilService.makeId()
+    if (id) loc.id = utilService.makeId()
     loc.name = name || utilService.randomLocName()
     loc.lat = lat || utilService.generateRandomLat()
     loc.lng = lng || utilService.generateRandomLng()

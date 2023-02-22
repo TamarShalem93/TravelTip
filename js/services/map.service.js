@@ -20,16 +20,18 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
         // Configure the click listener.
         gMap.addListener("click", ev => {
-            const loc = { name: prompt('choose a name'), lat: ev.latLng.lat(), lng: ev.latLng.lng() }
+            const loc = locService.createLoc("home", ev.latLng.lat(), ev.latLng.lng())
+            console.log(loc);
             panTo(loc)
             addMarker(loc)
-            addLocation()
+            saveLocation(loc)
 
         }
         )
     })
 }
-function addLocation(loc) {
+
+function saveLocation(loc) {
     locService.saveLoc(loc)
 }
 function addMarker(loc) {
