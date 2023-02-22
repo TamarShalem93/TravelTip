@@ -31,3 +31,18 @@ h5,
 h6 {
   font-family: product;
 }
+form{
+  display: flex;
+}
+
+form>button{
+  height: max-content;
+  width: 100px;
+  padding: 5px;
+}
+
+form>input{
+  height: max-content;
+    width: 150px;
+    padding: 10px;
+}

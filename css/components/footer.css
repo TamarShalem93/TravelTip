@@ -1,4 +1,6 @@
 footer{
   background-color: var(--clr-2);
-  color: var(--clr-3);
+  color: #333;
+  text-align: center;
+  padding: 5px;
 }
