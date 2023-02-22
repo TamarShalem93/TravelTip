@@ -1,7 +1,17 @@
 export const mapService = {
+<<<<<<< HEAD
   initMap,
   addMarker,
   panTo,
+=======
+    initMap,
+    addMarker,
+    panTo,
+    remove,
+    setCenter,
+    saveLocation,
+    getAddressLoc
+>>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
 }
 import { locService } from './loc.service.js'
 
@@ -9,12 +19,34 @@ import { locService } from './loc.service.js'
 var gMap, _gCurrInfOWin
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
+<<<<<<< HEAD
   console.log('InitMap')
   return _connectGoogleApi().then(() => {
     console.log('google available')
     gMap = new google.maps.Map(document.querySelector('#map'), {
       center: { lat, lng },
       zoom: 15,
+=======
+    console.log('InitMap')
+    return _connectGoogleApi().then(() => {
+        console.log('google available')
+        gMap = new google.maps.Map(document.querySelector('#map'), {
+            center: { lat, lng },
+            zoom: 15,
+        })
+        console.log('Map!', gMap)
+
+        // Configure the click listener.
+        gMap.addListener("click", ev => {
+            const loc = locService.createLoc("home", ev.latLng.lat(), ev.latLng.lng())
+            console.log(loc);
+            panTo(loc)
+            addMarker(loc)
+            saveLocation(loc)
+        }
+        )
+
+>>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
     })
     console.log('Map!', gMap)
 
@@ -33,6 +65,13 @@ function saveLocation(loc) {
   locService.saveLoc(loc)
 }
 
+<<<<<<< HEAD
+=======
+function remove(locId) {
+    return storageService.remove(LOC_KEY, locId)
+}
+
+>>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
 function addMarker(loc) {
   openInfoWin(loc)
   //   console.log(title)
@@ -45,6 +84,7 @@ function addMarker(loc) {
 }
 
 function panTo({ lat, lng }) {
+<<<<<<< HEAD
   var laLatLng = new google.maps.LatLng(lat, lng)
   gMap.panTo(laLatLng)
 }
@@ -65,6 +105,10 @@ function setPlaceName(ev, name) {
   ev.preventDefault()
   console.log(name)
   //   marker.title = name
+=======
+    var latLng = new google.maps.LatLng(lat, lng)
+    gMap.panTo(latLng)
+>>>>>>> 3544fc79fd58ba35351d1bfc3d35dc3022e413cb
 }
 
 function _connectGoogleApi() {
@@ -79,4 +123,20 @@ function _connectGoogleApi() {
     elGoogleApi.onload = resolve
     elGoogleApi.onerror = () => reject('Google script failed to load')
   })
+}
+
+function setCenter(loc) {
+    const latLng = { lat: loc.lat, lng: loc.lng }
+    gMap.setCenter(latLng);
+    gMap.panTo(latLng)
+}
+function getAddressLoc(address) {
+    const API_KEY = 'AIzaSyCTnsMp0vRfi2iLQOE0jgGMh3eVhtD2BKg'
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
+    return axios.get(url)
+        .then(res => {
+            console.log();
+            const location = res.data.results[0].geometry.location
+            return location
+        })
 }

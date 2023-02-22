@@ -8,7 +8,6 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
-
 function onInit() {
     mapService.initMap()
         .then(() => {
@@ -25,7 +24,7 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
+function onAddMarker(loc) {
     console.log('Adding a marker')
     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
 }
@@ -34,8 +33,13 @@ function onGetLocs() {
     locService.getLocs()
         .then(renderLocs)
 }
-function renderLocs(locs) {
-    console.log(locs);
+
+function renderLocs() {
+    locService.getLocs().then(renderLocsTable)
+
+}
+
+function renderLocsTable(locs) {
     let strHtmls = `<table>`
     strHtmls += locs.map(loc => {
         return `<tr>
@@ -51,17 +55,23 @@ function renderLocs(locs) {
     strHtmls += `</table>`
     document.querySelector('.locs').innerHTML = strHtmls
 }
+
 function onGo(id) {
-    console.log('go');
+    locService.getLoc(id)
+        .then(mapService.panTo)
 }
+
 function onDelete(id) {
-    console.log('delete');
+    console.log(id);
+    locService.remove(id)
+        .then(renderLocs)
 }
 
 function formatDate(timestamp) {
     const today = new Date(timestamp)
     return today.toDateString()
 }
+
 function onGetUserPos() {
     getPosition()
         .then(pos => {
@@ -73,7 +83,16 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo() {
-    console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+
+function onPanTo(ev) {
+    ev.preventDefault()
+    const address = document.querySelector('.text-pan').value
+    // console.log(address);
+    mapService.getAddressLoc(address).then(loc => {
+        mapService.panTo(loc)
+        mapService.addMarker(loc)
+        const location = locService.createLoc(address, loc.lat, loc.lng)
+        mapService.saveLocation(location)
+    })
 }
+
