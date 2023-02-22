@@ -30,12 +30,29 @@ function onAddMarker() {
 
 function onGetLocs() {
     locService.getLocs()
-        .then(locs => {
-            console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
-        })
+        .then(renderLocs)
+}
+function renderLocs(locs) {
+    console.log(locs);
+    let strHtmls = `<table></table>`
+    strHtmls += locs.map(loc => {
+        return `<tr>
+            <td>${loc.id}</td>
+            <td>${loc.name}</td>
+            <td>${formatDate(loc.createdAt)}</td>
+            <td>${formatDate(loc.updatedAt)}</td>
+            </tr>
+        `
+    }).join('')
+    strHtmls += `</table>`
+    document.querySelector('.locs').innerHTML = strHtmls
 }
 
+
+function formatDate(timestamp) {
+    const today = new Date(timestamp)
+    return today.toDateString()
+}
 function onGetUserPos() {
     getPosition()
         .then(pos => {

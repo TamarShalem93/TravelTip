@@ -3,6 +3,7 @@ export const mapService = {
     addMarker,
     panTo,
 }
+import { locService } from './loc.service.js'
 
 // Var that is used throughout this Module (not global)
 var gMap
@@ -16,9 +17,21 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             zoom: 15,
         })
         console.log('Map!', gMap)
+
+        // Configure the click listener.
+        gMap.addListener("click", ev => {
+            const loc = { name: prompt('choose a name'), lat: ev.latLng.lat(), lng: ev.latLng.lng() }
+            panTo(loc)
+            addMarker(loc)
+            addLocation()
+
+        }
+        )
     })
 }
-
+function addLocation(loc) {
+    locService.saveLoc(loc)
+}
 function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
@@ -28,7 +41,7 @@ function addMarker(loc) {
     return marker
 }
 
-function panTo(lat, lng) {
+function panTo({ lat, lng }) {
     var laLatLng = new google.maps.LatLng(lat, lng)
     gMap.panTo(laLatLng)
 }
