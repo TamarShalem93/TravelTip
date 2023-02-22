@@ -15,10 +15,12 @@ import { utilService } from './util.service.js'
 var gMap, _gCurrInfOWin, gLoc
 
 function initMap(lat, lng) {
-  // function initMap(lat = 32.0749831, lng = 34.9120554) {
   console.log('InitMap')
-  const lat = utilService.getValFromParam(lat)
-  const lng = utilService.getValFromParam(lng)
+
+  if (!lat || !lng) {
+    lat = utilService.getValFromParam(lat) || 32.0749831
+    lng = utilService.getValFromParam(lng) || 34.9120554
+  }
   return _connectGoogleApi().then(() => {
     console.log('google available')
     gMap = new google.maps.Map(document.querySelector('#map'), {
