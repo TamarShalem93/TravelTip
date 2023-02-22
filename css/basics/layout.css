@@ -1,7 +1,8 @@
 /* MAIN LAYOUT */
 .main-layout {
-    display: grid;
+  display: grid;
   grid-template-columns: minmax(20px, 1fr) minmax(auto, 1100px) minmax(20px, 1fr);
+  row-gap: 20px;
 }
 
 .main-layout>*:not(.full) {
@@ -11,3 +12,18 @@
 .main-layout>.full {
   grid-column: 1 / -1;
 }
+
+.inside-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.list-layout {
+  display: grid;
+  /* grid-template-columns: 1fr 2fr; */
+  align-items: center;
+  justify-items: start;
+  gap: 10px;
+}
+
